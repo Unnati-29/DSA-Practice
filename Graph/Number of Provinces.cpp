@@ -1,0 +1,29 @@
+class Solution {
+public:
+    void mark(vector<vector<int>>& isConnected,vector<bool> &visited,int i){
+        visited[i] = true;
+
+        int n = isConnected.size();
+
+        for (int j = 0; j < n; j++) {
+            if (isConnected[i][j] == 1 && !visited[j]) {
+                mark(isConnected,visited,j);
+            }
+        }
+    }
+
+    int findCircleNum(vector<vector<int>>& isConnected) {
+        int n = isConnected.size();
+
+        vector<bool> visited(n, false);
+        int provinces = 0;
+
+        for(int i=0;i<n;i++){
+            if(!visited[i]){
+                provinces++;
+                mark(isConnected,visited,i);
+            }
+        }
+        return provinces;
+    }
+};
